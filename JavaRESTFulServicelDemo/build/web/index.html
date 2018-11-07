@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Register Form</h1>
+    <form id="registerForm" action="api/register" method="PUT">
+
+        <input name="username" placeholder="Kullanıcı Adı" />    
+        </br>
+        <input name="password" type="password" placeholder ="Şifre" />
+        </br>
+        <button type="submit">Kaydol</button><br>
+
+    </form>
+    <!--server-result id'sini ajax için kullanıcaz. -->
+<div id ="server-results" style="color:red"></div>
+
+
+<script>
+    /* attach a submit handler to the form */
+    $("#registerForm").submit(function (event) {
+
+        event.preventDefault(); //prevent default action 
+        var post_url = $(this).attr("action"); //get form action url
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = $(this).serialize(); //Encode form elements for submission
+
+        $.ajax({
+            url: post_url,
+            type: request_method,
+            data: form_data
+        }).done(function (response) { // buraya istek attığında gelen cevap kısmı
+            $("#server-results").html(response); //server-result idli elementin içine yazıyoruz.
+        }); 
+    });
+</script>
+
+</body>
+</html>
